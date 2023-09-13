@@ -1,5 +1,5 @@
 {
-  description = "NixOS";
+  description = "A NixOS Implementation by Adam";
   
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -19,6 +19,7 @@
       };
     };
   in
+  
   {
     nixosConfigurations = {
       myNixos = nixpkgs.lib.nixosSystem {
@@ -35,7 +36,7 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.adam = import ./users/adam.nix;
+            home-manager.users.adam = import ./home/default.nix;
           }
         ];
       };

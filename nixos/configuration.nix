@@ -1,12 +1,7 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, nixpkgs, ... }:
-
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
     ];
 
@@ -80,13 +75,24 @@
   # services.xserver.libinput.enable = true;
 
   services.xserver.enable = true;
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "adam";
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.displayManager = {
+    # Enable automatic login for the user.
+    autoLogin.enable = true;
+    autoLogin.user = "adam"; 
+  };
+
+  services.xserver.desktopManager = {
+    # Enable the KDE Plasma Desktop Environment.
+    sddm.enable =  true;
+    plasma5.enable = true;
+  };
+
+  # Suspend settings
+  services.autosuspend = {
+    enable = false;
+  
+  };
 
   # Configure keymap in X11
   services.xserver = {
@@ -131,8 +137,6 @@
       '';
     };
   };
-
-
 
   # Enable the OpenSSH daemon.
   services.openssh = {
