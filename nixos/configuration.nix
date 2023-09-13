@@ -79,14 +79,13 @@
   services.xserver.displayManager = {
     # Enable automatic login for the user.
     autoLogin.enable = true;
-    autoLogin.user = "adam"; 
-  };
+    autoLogin.user = "adam";
 
-  services.xserver.desktopManager = {
     # Enable the KDE Plasma Desktop Environment.
     sddm.enable =  true;
-    plasma5.enable = true;
   };
+
+  services.xserver.desktopManager.plasma5.enable = true;
 
   # Suspend settings
   services.autosuspend = {
@@ -100,12 +99,18 @@
     xkbVariant = "";
   };
 
+  # Adding auxillary groups for dynamic window control.
+  users.extraGroups = [
+    "libvert"
+  ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.adam = {
     isNormalUser = true;
     description = "Adam Liang";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "libvert" ];
   };
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -144,6 +149,21 @@
     settings.PasswordAuthentication = true;
     settings.PermitRootLogin = "yes";
   };
+
+  virtualisation.libvirtd = {
+    enabled = true;
+  };
+
+  # virtualization.emu = {
+  #   enable = true;
+  #   machines = {
+  #     "VMM-Dev" = {
+  #       memory = 3070;
+  #       cores = 2;
+  #       spice = true;
+  #     };
+  #   };
+  # };
 
   networking.firewall.enable = false;
 
