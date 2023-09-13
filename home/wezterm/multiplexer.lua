@@ -1,0 +1,1 @@
+local mux = wezterm.mux
